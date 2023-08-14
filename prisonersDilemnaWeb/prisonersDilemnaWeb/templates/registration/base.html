@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  
+    <!--Navigation bar-->
+    <ul class="navBar">
+        <li class="navBar"><a class="navBar" href="{% url 'home' %}">Home</a></li>
+        <li class="navBar"><a class="navBar" href="accounts/login">Login</a></li>
+        <li class="navBar"><a class="navBar" href="accounts/login">Login</a></li>
+    </ul>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
