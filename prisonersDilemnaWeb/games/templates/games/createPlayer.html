@@ -1,0 +1,50 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}createPlayer{% endblock %}
+
+{% block content %}
+<p>
+    Create a new player, do not change the function name, and use 4 space indents
+</p>
+<form action = "{% url 'games:addPlayerUpdater' %}" method="post">
+    {% csrf_token %}
+      <textarea name="text" class="codeBox" id="code">
+def nextMove(previousMoves):
+    </textarea>
+      <p></p>
+      <input type="submit" value="save">
+</form>
+
+<script>
+    window.onload = function() {
+        document.querySelector('textarea').addEventListener('keydown', textAreaHandler);
+    }
+
+    textAreaHandler = function(e) {
+        
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            let start = this.selectionStart;
+            let end = this.selectionEnd;
+            let lines = this.value.split('\n');
+            let currentLine = 0;
+            let currentCharCount = 0;
+            for (let i = 0; i < lines.length; i++) {
+                currentCharCount += lines[i].length + 1;
+                if (currentCharCount > start) {
+                    currentLine = i;
+                    break;
+                }
+            }
+            console.log(currentLine)
+            let indent = lines[currentLine].match(/^\s*/)[0];
+            this.value = this.value.slice(0, start) + '\n' + indent + this.value.slice(end);
+            this.selectionStart = start + indent.length + 1;
+            this.selectionEnd = end + indent.length + 1;
+        }
+    };
+</script>
+
+{% endblock content %}
+
+

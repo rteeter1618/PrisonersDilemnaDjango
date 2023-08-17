@@ -8,6 +8,10 @@ a {
     color: black;
 }
 
+input {
+    margin: 5px;
+}
+
 a:hover {
     background-color:gray
 }
@@ -18,20 +22,26 @@ ul.navBar {
     padding: 0;
     overflow: hidden;
     background-color: lightgray;
-  }
-  
-  a.navBar {
-      display: block;
-      background-color: lightgray;
-      text-align: center;
-      padding: 20px 40px;
-  }
-  
-  a.navBar:hover {
-      background-color: darkgray;
-  }
-  
-  li.navBar {
-      display: inline;
-      float: left;
-  }
+}
+
+a.navBar {
+    display: block;
+    background-color: lightgray;
+    text-align: center;
+    padding: 20px 40px;
+}
+
+a.navBar:hover {
+    background-color: darkgray;
+}
+
+li.navBar {
+    display: inline;
+    float: left;
+}
+
+.codeBox {
+    width: 50vw;
+    height: 50vh;
+    margin: 5px;
+}

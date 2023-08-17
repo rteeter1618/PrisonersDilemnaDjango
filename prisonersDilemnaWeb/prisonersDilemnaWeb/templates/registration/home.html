@@ -5,7 +5,14 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  <p>My players</p>
+  <!--Add here-->
+  <p>Create new player</p>
+  <button>
+    <a href={% url "games:createNewPlayer" %}>Make new player</a>
+  </button>
   <p><a href="{% url 'logout' %}">Log Out</a></p>
+
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
