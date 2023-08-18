@@ -11,7 +11,7 @@ class Player(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     strategy = models.TextField(default="default")
 
-    def getNextMove(self, myPrevMoves, theirPrevMoves):
+    def getNextMove(self, theirPrevMoves, myPrevMoves):
         # Add the custom import function to the safe builtins
         safe_builtins['__import__'] = _import
 
@@ -29,10 +29,10 @@ class Player(models.Model):
         exec(byte_code, global_vars, local_vars)
 
         # Retrieve the result from the local variables
-        function = local_vars['my_function']
+        function = local_vars['nextMove']
 
 
-        print(function(9))
+        print(function(theirPrevMoves, myPrevMoves))
 
 
 

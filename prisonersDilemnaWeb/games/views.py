@@ -9,10 +9,11 @@ from games.models import Player
 
 
 def addPlayerUpdater(request):
-    text = request.POST["text"]
-    player = Player(user=request.user, strategy=text)
+    code = request.POST["code"]
+    playerName = request.POST['playerName']
+    player = Player(user=request.user, strategy=code, name=playerName)
     player.save()
-    player.getNextMove([])
+    player.getNextMove([], [])
 
     return HttpResponseRedirect(reverse("home"))
 
