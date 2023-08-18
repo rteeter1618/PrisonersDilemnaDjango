@@ -10,6 +10,11 @@ class Player(models.Model):
     name=models.TextField(max_length=100, default="default")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     strategy = models.TextField(default="default")
+    points = models.IntegerField(default=0)
+    rounds_played = models.IntegerField(default=0)
+    pointsPerRound = models.FloatField(default=0)
+    timesC = models.IntegerField(default=0)
+    timesD = models.IntegerField(default=0)
 
     def getNextMove(self, theirPrevMoves, myPrevMoves):
         # Add the custom import function to the safe builtins
