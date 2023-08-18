@@ -1,22 +1,22 @@
-{% extends 'registration/base.html' %}
+{% extends 'registration/loggedInBase.html' %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p>My players</p>
-  <!--Add here-->
-  <p>Create new player</p>
-  <button>
-    <a href={% url "games:createNewPlayer" %}>Make new player</a>
-  </button>
+  <ul>
+    {% for player in user.player_set.all %}
+      <li>
+        <a href = {% url "games:playerDetail" player.id %}>{{player.name}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <p>
+    Create new player:
+    <button>
+      <a href={% url "games:createNewPlayer" %}>Make new player</a>
+    </button>
+  </p>
   <p><a href="{% url 'logout' %}">Log Out</a></p>
-
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-  <p></p>
-  <a href="{% url 'accounts:signup' %}">Sign Up</a>
-{% endif %}
 {% endblock %}

@@ -19,3 +19,7 @@ def addPlayerUpdater(request):
 
 def createNewPlayer(request):
     return render(request, "games/createPlayer.html", {})
+
+class playerDetail(generic.DetailView):
+    model = Player
+    template_name = "games/playerDetail.html"
