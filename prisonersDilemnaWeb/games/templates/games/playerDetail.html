@@ -1,7 +1,15 @@
 {% extends 'registration/loggedInBase.html' %}
 {% block content %}
 
-<h2>{{player.name}}</h2>
+<h2>Player details: {{player.name}}</h2>
+<ul>
+    <li>points: {{player.points}}</li>
+    <li>rounds played: {{player.rounds_played}}</li>
+    <li>points per round: {{player.points_per_round}}</li>
+    <li>times cooperated: {{player.timesC}}</li>
+    <li>times defected: {{player.timesD}}</li>
+</ul>
+<a href= {% url "games:playRounds" player.id%}>Play rounds</a>
 
 
 {% endblock %}

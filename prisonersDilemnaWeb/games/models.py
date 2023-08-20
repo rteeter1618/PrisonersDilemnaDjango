@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 from django.contrib.auth.models import User
 
 from RestrictedPython import compile_restricted, safe_builtins
@@ -12,9 +13,15 @@ class Player(models.Model):
     strategy = models.TextField(default="default")
     points = models.IntegerField(default=0)
     rounds_played = models.IntegerField(default=0)
-    pointsPerRound = models.FloatField(default=0)
-    timesC = models.IntegerField(default=0)
-    timesD = models.IntegerField(default=0)
+    points_per_round = models.FloatField(default=0)
+    #timesC = models.IntegerField(default=0)
+    #timesD = models.IntegerField(default=0)
+    #history = models.ExpressionList()
+
+    def updateStats(self, myPayoff):
+        self.points = F("points") + myPayoff
+        self.rounds_played = F("rounds_played") + 1
+        self.points_per_round = self.points / self.rounds_played
 
     def getNextMove(self, theirPrevMoves, myPrevMoves):
         # Add the custom import function to the safe builtins
