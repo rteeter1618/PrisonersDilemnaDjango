@@ -1,5 +1,5 @@
 
 class PayoffCalculator:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, matrix) -> None:
+        self.matrix = matrix
 
