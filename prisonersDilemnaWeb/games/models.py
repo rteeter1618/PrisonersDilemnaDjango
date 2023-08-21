@@ -1,8 +1,15 @@
 from django.db import models
 from django.db.models import F
 from django.contrib.auth.models import User
+import random
 
-from RestrictedPython import compile_restricted, safe_builtins
+from RestrictedPython import compile_restricted, safe_builtins, safe_globals
+#from RestrictedPython.Guards import __getitem__
+#from RestrictedPython import set_policy
+
+
+
+
 
 # Create your models here.
 
@@ -18,14 +25,22 @@ class Player(models.Model):
     #timesD = models.IntegerField(default=0)
     #history = models.ExpressionList()
 
-    def updateStats(self, myPayoff):
-        self.points = F("points") + myPayoff
+    def updateStats(self, myRoundInfo):
+        self.points = F("points") + myRoundInfo.myPayoff
         self.rounds_played = F("rounds_played") + 1
         self.points_per_round = self.points / self.rounds_played
+        self.save()
+
+        
 
     def getNextMove(self, theirPrevMoves, myPrevMoves):
+        #set_policy(lambda obj, item: True)
         # Add the custom import function to the safe builtins
         safe_builtins['__import__'] = _import
+        safe_builtins['_getitem_'] = _getitem_
+        #safe_globals['_getitem_'] = guarded_getitem
+        #safe_globals['__builtins__'] = safe_builtins
+        
 
         # Define the source code to be executed
         source_code = self.strategy
@@ -34,27 +49,37 @@ class Player(models.Model):
         byte_code = compile_restricted(source_code, '<string>', 'exec')
 
         # Define the global and local variables for the execution
-        global_vars = {'__builtins__': safe_builtins}
+        global_vars = {'__builtins__': safe_builtins, 'random': random}
         local_vars = {}
 
-        # Execute the compiled code
-        exec(byte_code, global_vars, local_vars)
+        # Execute the compiled code# Execute the compiled code
+        try:
+            exec(byte_code, global_vars, local_vars)
+        except Exception as e:
+            print(f'Error: {e}')
+
+        
 
         # Retrieve the result from the local variables
         function = local_vars['nextMove']
 
 
-        print(function(theirPrevMoves, myPrevMoves))
+        return function(theirPrevMoves, myPrevMoves)
 
 
 
 
 # Define a custom function to allow importing only specific modules
 def _import(name, globals=None, locals=None, fromlist=(), level=0):
-    allowed_modules = ['math']
+    allowed_modules = ['math', 'random']
     if name in allowed_modules:
+        #print(name)
         return __import__(name, globals, locals, fromlist, level)
     else:
         raise ImportError(f'Importing module {name} is not allowed')
+
+def _getitem_(obj, item):
+  return obj[item]
+
 
 

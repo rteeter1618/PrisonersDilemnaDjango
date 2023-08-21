@@ -14,7 +14,7 @@ class MatchManager:
         while(numGames > len(playerPool)):
             for opponent in playerPool:
                 self.playMatch(opponent, numRounds)
-            numRounds -= len(playerPool)
+            numGames -= len(playerPool)
         
         #some random matches at the end
         while(numGames > 0):
@@ -25,14 +25,26 @@ class MatchManager:
         theirMoves = []
         myMoves = []
         while(numRounds > 0):
-            myMove = self.player.getNextMove()
+            myMove = self.player.getNextMove(theirMoves, myMoves)
+            theirMove = opponent.getNextMove(theirMoves, myMoves)
             myMoves.append(myMove)
-            theirMove = opponent.getNextMove()
             theirMoves.append(theirMove)
+            
+            # print(numRounds)
+            # print(opponent.name)
+            # print(myMove)
+            # print(theirMove)
+            # print("-")
 
-
-            payoffs = self.payoffCalculator.getPayoffs([myMove, theirMove])
-            self.player.updateStats
+            roundInfos = self.payoffCalculator.getRoundInfos(myMove, theirMove)
+            self.player.updateStats(roundInfos[0])
+            opponent.updateStats(roundInfos[1])
             numRounds -= 1
+
+    def nextMove(theirMoves, myMoves):
+        if(len(theirMoves) == 0):
+            return "C"
+        else:
+            return theirMoves[len(theirMoves) - 1]
 
 
