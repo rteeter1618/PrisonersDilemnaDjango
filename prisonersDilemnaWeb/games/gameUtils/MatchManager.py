@@ -41,10 +41,4 @@ class MatchManager:
             opponent.updateStats(roundInfos[1])
             numRounds -= 1
 
-    def nextMove(theirMoves, myMoves):
-        if(len(theirMoves) == 0):
-            return "C"
-        else:
-            return theirMoves[len(theirMoves) - 1]
-
 
