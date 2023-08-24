@@ -28,7 +28,11 @@ class Player(models.Model):
     def updateStats(self, myRoundInfo):
         self.points = F("points") + myRoundInfo.myPayoff
         self.rounds_played = F("rounds_played") + 1
-        self.points_per_round = self.points / self.rounds_played
+        self.points_per_round = F("points") / F("rounds_played")
+        self.save()
+        self.refresh_from_db()
+        num = self.points / self.rounds_played
+        self.points_per_round = (self.points / self.rounds_played)
         self.save()
 
         
