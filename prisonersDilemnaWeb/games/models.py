@@ -21,9 +21,6 @@ class Player(models.Model):
     points = models.IntegerField(default=0)
     rounds_played = models.IntegerField(default=0)
     points_per_round = models.FloatField(default=0)
-    #timesC = models.IntegerField(default=0)
-    #timesD = models.IntegerField(default=0)
-    #history = models.ExpressionList()
 
     def updateStats(self, myRoundInfo):
         self.points = F("points") + myRoundInfo.myPayoff
@@ -71,8 +68,6 @@ class Player(models.Model):
         return function(theirPrevMoves, myPrevMoves)
 
 
-
-
 # Define a custom function to allow importing only specific modules
 def _import(name, globals=None, locals=None, fromlist=(), level=0):
     allowed_modules = ['math', 'random']
@@ -86,4 +81,27 @@ def _getitem_(obj, item):
   return obj[item]
 
 
+
+#a match is made up of many rounds
+class MatchSummary:
+    players = models.ManyToManyField(Player, related_name='matches')
+
+    #gets the total amount of points scored by the given player in the match
+    def getTotalPoints(self, player):
+        total = 0
+        for round in self.rounds:
+            for playerPointPair in round.playerPointPairs:
+                if(player == playerPointPair.player):
+                    total += playerPointPair.points
+        return total
+
+#a round consists of each player playing a certain move and scoring a certain number of points   
+class RoundData:
+    match = models.ForeignKey(MatchSummary, related_name='rounds')
+
+class PlayerPointPair:
+    round = models.ForeignKey(RoundData, related_name='playerPointPairs')
+    player = models.ForeignKey(Player)
+    points = models.IntegerField(default=0)
+    move = models.TextField()
 

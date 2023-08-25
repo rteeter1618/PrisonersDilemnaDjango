@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from games.models import Player
+from games.models import MatchSummary, Player
 
 # Register your models here.
 
@@ -8,4 +8,4 @@ from games.models import Player
 class PlayerAdmin(admin.ModelAdmin):
     list_display=['name', 'user']
 
-admin.site.register(Player, PlayerAdmin)
+admin.site.register(Player, PlayerAdmin, MatchSummary)
