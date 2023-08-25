@@ -45,16 +45,23 @@ class MatchManager:
             # print(theirMove)
             # print("-")
 
+            players = [self.player, opponent]
             roundInfos = self.payoffCalculator.getRoundInfos(myMove, theirMove)
 
-            playerPointPair1 = PlayerPointPair(round=roundData, player = self.player, points = roundInfos[0].myPayoff, move = roundInfos[0].myMove)
-            playerPointPair2 = PlayerPointPair(round=roundData, player = opponent, points = roundInfos[1].myPayoff, move = roundInfos[1].myMove)
-            playerPointPair1.save()
-            playerPointPair2.save()
-            roundData.save()
+            for idx, player in enumerate(players):
+                playerPointPair1 = PlayerPointPair(
+                    round=roundData, player = player,
+                    points = roundInfos[idx].myPayoff,
+                    move = roundInfos[idx].myMove)
+                playerPointPair1.save()
+                player.updateStats(roundInfos[idx])
+
+            # playerPointPair2 = PlayerPointPair(round=roundData, player = opponent, points = roundInfos[1].myPayoff, move = roundInfos[1].myMove)
+            # playerPointPair2.save()
+            # roundData.save()
             
-            self.player.updateStats(roundInfos[0])
-            opponent.updateStats(roundInfos[1])
+            # self.player.updateStats(roundInfos[0])
+            # opponent.updateStats(roundInfos[1])
 
             numRounds -= 1
         matchHistory.save()
