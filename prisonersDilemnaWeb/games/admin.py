@@ -8,4 +8,4 @@ from games.models import MatchSummary, Player
 class PlayerAdmin(admin.ModelAdmin):
     list_display=['name', 'user']
 
-admin.site.register(Player, PlayerAdmin, MatchSummary)
+admin.site.register(Player, PlayerAdmin)
