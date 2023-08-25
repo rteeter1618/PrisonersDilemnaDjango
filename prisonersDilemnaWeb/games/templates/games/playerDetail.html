@@ -1,6 +1,6 @@
 {% extends 'registration/loggedInBase.html' %}
 {% block content %}
-
+{% load my_tags %}
 <h2>Player details: {{player.name}}</h2>
 <ul>
     <li>points: {{player.points}}</li>
@@ -14,9 +14,9 @@
 
     {% for match in player.matches.all %}
     <div class="grid-container">
-        {% for player in match.players %}
-            <div class="grid-item">player.name</div>
-            <div class="grid-item">match.getTotalPoints(player)</div>
+        {% for player in match.players.all %}
+            <div class="grid-item">{{player.name}}</div>
+            <div class="grid-item">{{match|getTotalPoints:player}}</div>
         {% endfor %}
     </div>
     {% endfor %}

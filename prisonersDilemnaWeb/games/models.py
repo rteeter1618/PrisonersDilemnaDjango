@@ -11,6 +11,8 @@ from RestrictedPython import compile_restricted, safe_builtins, safe_globals
 
 
 
+
+
 # Create your models here.
 
 
@@ -87,10 +89,11 @@ class MatchSummary(models.Model):
     players = models.ManyToManyField(Player, related_name='matches')
 
     #gets the total amount of points scored by the given player in the match
+
     def getTotalPoints(self, player):
         total = 0
-        for round in self.rounds:
-            for playerPointPair in round.playerPointPairs:
+        for round in self.rounds.all():
+            for playerPointPair in round.playerPointPairs.all():
                 if(player == playerPointPair.player):
                     total += playerPointPair.points
         return total
