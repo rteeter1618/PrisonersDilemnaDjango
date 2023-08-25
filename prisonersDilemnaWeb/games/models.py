@@ -83,7 +83,7 @@ def _getitem_(obj, item):
 
 
 #a match is made up of many rounds
-class MatchSummary:
+class MatchSummary(models.Model):
     players = models.ManyToManyField(Player, related_name='matches')
 
     #gets the total amount of points scored by the given player in the match
@@ -96,12 +96,12 @@ class MatchSummary:
         return total
 
 #a round consists of each player playing a certain move and scoring a certain number of points   
-class RoundData:
-    match = models.ForeignKey(MatchSummary, related_name='rounds')
+class RoundData(models.Model):
+    match = models.ForeignKey(MatchSummary, related_name='rounds', on_delete=models.CASCADE)
 
-class PlayerPointPair:
-    round = models.ForeignKey(RoundData, related_name='playerPointPairs')
-    player = models.ForeignKey(Player)
+class PlayerPointPair(models.Model):
+    round = models.ForeignKey(RoundData, related_name='playerPointPairs', on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
     move = models.TextField()
 
