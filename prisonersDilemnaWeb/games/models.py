@@ -24,9 +24,13 @@ class Player(models.Model):
     rounds_played = models.IntegerField(default=0)
     points_per_round = models.FloatField(default=0)
 
-    def updateStats(self, myRoundInfo):
-        self.points = F("points") + myRoundInfo.myPayoff
-        self.rounds_played = F("rounds_played") + 1
+    def updateStats(self, matchSummary):
+        allPlayerPointPairs = matchSummary.playerPointPairs.all()
+        #selecting the playerPointPair assosciated with this player(there should only be one so 0th elem is fine)
+        myPoints = [pair.points for pair in allPlayerPointPairs if pair.player == self ][0]
+
+        self.points = F("points") + allPlayerPointPairs
+        self.rounds_played = F("rounds_played") + len(matchSummary.rounds.all())
         self.points_per_round = F("points") / F("rounds_played")
         self.save()
         self.refresh_from_db()
