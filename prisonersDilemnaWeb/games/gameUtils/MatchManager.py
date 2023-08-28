@@ -15,13 +15,16 @@ class MatchManager:
         #play all players an equal number of times
         while(numGames > len(playerPool)):
             for opponent in playerPool:
-                self.playMatch(opponent, numRounds)
-            numGames -= len(playerPool)
+                if(opponent != self.player):
+                    self.playMatch(opponent, numRounds)
+                    numGames -= 1
         
         #some random matches at the end
         while(numGames > 0):
-            self.playMatch(random.choice(playerPool), numRounds)
-            numGames -= 1
+            opponent = random.choice(playerPool)
+            if(opponent != self.player):
+                self.playMatch(opponent, numRounds)
+                numGames -= 1
     
     def playMatch(self, opponent, numRounds):
         
