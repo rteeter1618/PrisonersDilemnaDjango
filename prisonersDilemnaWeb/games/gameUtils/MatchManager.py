@@ -63,7 +63,6 @@ class MatchManager:
                     points = payoffs[idx],
                     move = allMoves[idx][-1])
                 playerPointPair.save()
-                player.updateStats(playerPointPair)
 
             # playerPointPair2 = PlayerPointPair(round=roundData, player = opponent, points = roundInfos[1].myPayoff, move = roundInfos[1].myMove)
             # playerPointPair2.save()
@@ -74,5 +73,7 @@ class MatchManager:
 
             numRounds -= 1
         matchHistory.save()
+        for player in allPlayers:
+            player.updateStats(matchHistory)
 
 
