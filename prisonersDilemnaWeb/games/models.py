@@ -18,11 +18,12 @@ class Game(models.Model):
 
 class Player(models.Model):
     name = models.TextField(max_length=100, default="default")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="players", on_delete=models.CASCADE)
     strategy = models.TextField(default="default")
     points = models.IntegerField(default=0)
     rounds_played = models.IntegerField(default=0)
     points_per_round = models.FloatField(default=0)
+    game = models.ForeignKey(Game, related_name= 'players', on_delete=models.CASCADE)
 
     def updateStats(self, matchSummary):
 
