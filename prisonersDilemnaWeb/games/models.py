@@ -10,14 +10,14 @@ from RestrictedPython import compile_restricted, safe_builtins, safe_globals
 
 
 
-
+class Game(models.Model):
+    name = models.TextField
 
 
 # Create your models here.
 
-
 class Player(models.Model):
-    name=models.TextField(max_length=100, default="default")
+    name = models.TextField(max_length=100, default="default")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     strategy = models.TextField(default="default")
     points = models.IntegerField(default=0)
