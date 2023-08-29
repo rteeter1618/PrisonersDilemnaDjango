@@ -23,7 +23,7 @@ class Player(models.Model):
     points = models.IntegerField(default=0)
     rounds_played = models.IntegerField(default=0)
     points_per_round = models.FloatField(default=0)
-    #game = models.ForeignKey(Game, related_name= 'players', on_delete=models.CASCADE, default=Game(name='Prisoners Dilemna'))
+    game = models.ForeignKey(Game, related_name= 'players', on_delete=models.CASCADE)
 
     def updateStats(self, matchSummary):
 
