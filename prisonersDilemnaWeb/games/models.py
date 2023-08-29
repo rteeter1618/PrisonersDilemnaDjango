@@ -11,7 +11,7 @@ from RestrictedPython import compile_restricted, safe_builtins, safe_globals
 
 
 class Game(models.Model):
-    name = models.TextField
+    name = models.TextField()
 
 
 # Create your models here.
@@ -23,7 +23,7 @@ class Player(models.Model):
     points = models.IntegerField(default=0)
     rounds_played = models.IntegerField(default=0)
     points_per_round = models.FloatField(default=0)
-    game = models.ForeignKey(Game, related_name= 'players', on_delete=models.CASCADE)
+    #game = models.ForeignKey(Game, related_name= 'players', on_delete=models.CASCADE, default=Game(name='Prisoners Dilemna'))
 
     def updateStats(self, matchSummary):
 
