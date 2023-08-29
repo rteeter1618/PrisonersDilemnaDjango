@@ -1,14 +1,16 @@
 
-from games.gameUtils.RoundInfo import RoundResultInfo
 
 
-class PayoffCalculator:
+class TwoPlayerPayoffCalculator:
     def __init__(self, myPayoff, theirPayoff, stringToPayoffMap) -> None:
         self.myPayoffGrid = myPayoff
         self.theirPayoffGrid = theirPayoff
         self.stringToPayoffMap = stringToPayoffMap
     
-    def getRoundInfos(self, myMove, theirMove):
+    def getPayoffs(self, moves):
+        myMove = moves[0]
+        theirMove = moves[1]
+
         myIntMove = self.stringToPayoffMap[myMove]
         theirIntMove = self.stringToPayoffMap[theirMove]
         
@@ -16,10 +18,6 @@ class PayoffCalculator:
         myPayoff = self.myPayoffGrid[myIntMove][theirIntMove]
         theirPayoff = self.theirPayoffGrid[myIntMove][theirIntMove]
 
-        roundInfos = [
-            RoundResultInfo(myPayoff, myMove),
-            RoundResultInfo(theirPayoff, theirMove)
-        ]
-        return roundInfos
+        return [myPayoff, theirPayoff]
 
 

@@ -33,6 +33,10 @@ class MatchManager:
         matchHistory.save()
         matchHistory.players.add(self.player, opponent)
         allMoves = [[] for i in range(2)]
+        #[
+        # [myMoves]
+        # [theirMoves]
+        # ]
         #playing multiple rounds between the same players
         while(numRounds > 0):
             roundData = RoundData(match=matchHistory)
@@ -42,7 +46,7 @@ class MatchManager:
             theirMoves = allMoves[0]
             myMoves = allMoves[1]
 
-            curMoves = [tempPlayer.getNextMove(theirMoves, myMoves) for tempPlayer in players]
+            curMoves = [tempPlayer.getNextMove(theirMoves, myMoves) for tempPlayer in allPlayers]
             myMove = self.player.getNextMove(theirMoves, myMoves)
             theirMove = opponent.getNextMove(theirMoves, myMoves)
             #storing moves for later
@@ -50,15 +54,16 @@ class MatchManager:
             allMoves[1].append(theirMove)
 
             players = [self.player, opponent]
-            roundInfos = self.payoffCalculator.getRoundInfos(myMove, theirMove)
+            payoffs = self.payoffCalculator.getPayoffs([moves[-1] for moves in allMoves])
 
             for idx, player in enumerate(players):
                 playerPointPair = PlayerPointPair(
-                    round=roundData, player = player,
-                    points = roundInfos[idx].myPayoff,
-                    move = roundInfos[idx].myMove)
+                    round=roundData,
+                    player = player,
+                    points = payoffs[idx],
+                    move = allMoves[idx][-1])
                 playerPointPair.save()
-                player.updateStats(roundInfos[idx])
+                player.updateStats(playerPointPair)
 
             # playerPointPair2 = PlayerPointPair(round=roundData, player = opponent, points = roundInfos[1].myPayoff, move = roundInfos[1].myMove)
             # playerPointPair2.save()

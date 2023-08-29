@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from games.gameUtils.MatchManager import MatchManager
-from games.gameUtils.payoffCalculator import PayoffCalculator
+from games.gameUtils.payoffCalculator import TwoPlayerPayoffCalculator
 
 from games.models import Player
 
@@ -41,7 +41,7 @@ def playRounds(request, pk):
     stringToPayoffMap = {}
     stringToPayoffMap['C'] = 0
     stringToPayoffMap['D'] = 1
-    payoffCalculator = PayoffCalculator(myPayMatrix, theirPayMatrix, stringToPayoffMap)
+    payoffCalculator = TwoPlayerPayoffCalculator(myPayMatrix, theirPayMatrix, stringToPayoffMap)
     matchManager = MatchManager(player, payoffCalculator)
     matchManager.playRounds(10, 10, Player.objects.all())
     print("DONE")
