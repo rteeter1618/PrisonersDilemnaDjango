@@ -5,7 +5,7 @@ from django.views import generic
 from games.gameUtils.MatchManager import MatchManager
 from games.gameUtils.payoffCalculator import TwoPlayerPayoffCalculator
 
-from games.models import Player
+from games.models import MatchSummary, Player
 
 
 
@@ -23,6 +23,9 @@ def createNewPlayer(request):
     return render(request, "games/createPlayer.html", {})
 
 class playerDetail(generic.DetailView):
+#     allObjs = MatchSummary.objects.all()
+#     for obj in allObjs:
+#         obj.delete()
     model = Player
     template_name = "games/playerDetail.html"
 

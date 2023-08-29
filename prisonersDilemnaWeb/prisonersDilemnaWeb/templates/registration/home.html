@@ -6,7 +6,7 @@
   Hi {{ user.username }}!
   <p>My players</p>
   <ul>
-    {% for player in user.player_set.all %}
+    {% for player in user.players.all %}
       <li>
         <a href = {% url "games:playerDetail" player.id %}>{{player.name}}</a>
       </li>
