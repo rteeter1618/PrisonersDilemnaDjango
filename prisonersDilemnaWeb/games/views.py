@@ -19,10 +19,14 @@ def addPlayerUpdater(request):
 
     return HttpResponseRedirect(reverse("home"))
 
-def createNewPlayer(request):
-    return render(request, "games/createPlayer.html", {})
+def gameHome(request, game_id):
+    return render(request, "games/gameHome.html", {"game_id": game_id})
+
+def createNewPlayer(request, game_id):
+    return render(request, "games/createPlayer.html", {"game_id":game_id})
 
 class playerDetail(generic.DetailView):
+    #This code was used to delete match history when refactored
 #     allObjs = MatchSummary.objects.all()
 #     for obj in allObjs:
 #         obj.delete()

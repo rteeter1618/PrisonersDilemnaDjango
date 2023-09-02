@@ -4,19 +4,4 @@
 
 {% block content %}
   Hi {{ user.username }}!
-  <p>My players</p>
-  <ul>
-    {% for player in user.players.all %}
-      <li>
-        <a href = {% url "games:playerDetail" player.id %}>{{player.name}}</a>
-      </li>
-    {% endfor %}
-  </ul>
-  <p>
-    Create new player:
-    <button>
-      <a href={% url "games:createNewPlayer" %}>Make new player</a>
-    </button>
-  </p>
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endblock %}
