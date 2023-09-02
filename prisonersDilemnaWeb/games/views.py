@@ -20,7 +20,10 @@ def addPlayerUpdater(request):
     return HttpResponseRedirect(reverse("home"))
 
 def gameHome(request, game_id):
-    return render(request, "games/gameHome.html", {"game_id": game_id})
+    players = request.user.players.filter(game=game_id)
+    return render(request, "games/gameHome.html",
+        {"game_id": game_id,
+         "players": players})
 
 def createNewPlayer(request, game_id):
     return render(request, "games/createPlayer.html", {"game_id":game_id})
