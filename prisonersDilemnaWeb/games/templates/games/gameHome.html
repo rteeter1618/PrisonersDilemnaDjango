@@ -4,6 +4,7 @@
 
 {% block content %}
   Hi {{ user.username }}!
+  <h1>{{game.name}}</h1>
   <p>My players</p>
   <ul>
     {% for player in players %}

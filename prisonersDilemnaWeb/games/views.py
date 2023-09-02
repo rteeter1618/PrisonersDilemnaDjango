@@ -5,7 +5,7 @@ from django.views import generic
 from games.gameUtils.MatchManager import MatchManager
 from games.gameUtils.payoffCalculator import TwoPlayerPayoffCalculator
 
-from games.models import MatchSummary, Player
+from games.models import Game, MatchSummary, Player
 
 
 
@@ -23,7 +23,8 @@ def gameHome(request, game_id):
     players = request.user.players.filter(game=game_id)
     return render(request, "games/gameHome.html",
         {"game_id": game_id,
-         "players": players})
+         "players": players,
+         "game": Game.objects.get(pk=game_id)})
 
 def createNewPlayer(request, game_id):
     return render(request, "games/createPlayer.html", {"game_id":game_id})
