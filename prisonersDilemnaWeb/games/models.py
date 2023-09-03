@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import random
 
 from RestrictedPython import compile_restricted, safe_builtins, safe_globals
+from games.gameUtils.payoffCalculator import TwoPlayerPayoffCalculator
 #from RestrictedPython.Guards import __getitem__
 #from RestrictedPython import set_policy
 
@@ -12,6 +13,39 @@ from RestrictedPython import compile_restricted, safe_builtins, safe_globals
 
 class Game(models.Model):
     name = models.TextField()
+
+    def getPayoffCalculator(self):
+        if(self.pk == 1):
+            # "I" choose the rows
+            myPayMatrix = [
+                #C  D
+                [3, 0], #C
+                [5, 1]  #D
+            ]
+            theirPayMatrix = [
+                [3, 5],
+                [0, 1]
+            ]
+            stringToPayoffMap = {}
+            stringToPayoffMap['C'] = 0
+            stringToPayoffMap['D'] = 1
+            return TwoPlayerPayoffCalculator(myPayMatrix, theirPayMatrix, stringToPayoffMap)
+        elif(self.pk == 2):
+            # "I" choose the rows
+            myPayMatrix = [
+                #S  D
+                [3, 1], #S
+                [5, 0]  #D
+            ]
+            theirPayMatrix = [
+                [3, 5],
+                [1, 0]
+            ]
+            stringToPayoffMap = {}
+            stringToPayoffMap['S'] = 0
+            stringToPayoffMap['D'] = 1
+            return TwoPlayerPayoffCalculator(myPayMatrix, theirPayMatrix, stringToPayoffMap)
+
 
 
 # Create your models here.

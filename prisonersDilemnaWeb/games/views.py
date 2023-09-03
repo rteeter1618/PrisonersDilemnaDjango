@@ -39,20 +39,7 @@ class playerDetail(generic.DetailView):
 
 def playRounds(request, pk):
     player = get_object_or_404(Player, id=pk)
-    # "I" choose the rows
-    myPayMatrix = [
-        #C  D
-        [3, 0], #C
-        [5, 1]  #D
-    ]
-    theirPayMatrix = [
-        [3, 5],
-        [0, 1]
-    ]
-    stringToPayoffMap = {}
-    stringToPayoffMap['C'] = 0
-    stringToPayoffMap['D'] = 1
-    payoffCalculator = TwoPlayerPayoffCalculator(myPayMatrix, theirPayMatrix, stringToPayoffMap)
+    payoffCalculator = player.game.getPayoffCalculator()
     matchManager = MatchManager(player, payoffCalculator)
     matchManager.playRounds(10, 10, Player.objects.all())
     print("DONE")
