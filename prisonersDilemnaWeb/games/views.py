@@ -13,7 +13,7 @@ from games.models import Game, MatchSummary, Player
 def addPlayerUpdater(request, game_id):
     code = request.POST["code"]
     playerName = request.POST['playerName']
-    player = Player(user=request.user, strategy=code, name=playerName, game=game_id)
+    player = Player(user=request.user, strategy=code, name=playerName, game=Game.objects.get(pk=game_id))
     player.save()
     player.getNextMove([], [])
 
