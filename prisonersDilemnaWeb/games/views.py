@@ -41,6 +41,6 @@ def playRounds(request, pk):
     player = get_object_or_404(Player, id=pk)
     payoffCalculator = player.game.getPayoffCalculator()
     matchManager = MatchManager(player, payoffCalculator)
-    matchManager.playRounds(10, 10, Player.objects.all())
+    matchManager.playRounds(10, 10, Player.objects.filter(game=player.game))
     print("DONE")
     return HttpResponseRedirect(reverse("games:playerDetail", args=[pk]))

@@ -10,3 +10,4 @@ class PlayerAdmin(admin.ModelAdmin):
 
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Game)
+admin.site.register(MatchSummary)
