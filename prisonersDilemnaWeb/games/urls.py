@@ -6,7 +6,7 @@ app_name='games'
 
 urlpatterns = [
     #creates new player and adds to database, no webpage
-    path("addPlayerUpdater/", views.addPlayerUpdater, name="addPlayerUpdater"),
+    path("addPlayerUpdater/<int:game_id>", views.addPlayerUpdater, name="addPlayerUpdater"),
     #The creation page editor for a new player
     path("createNewPlayer/<int:game_id>", views.createNewPlayer, name="createNewPlayer"),
     #Player statistics
