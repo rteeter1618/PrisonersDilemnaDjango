@@ -6,7 +6,7 @@
 <p>
     Create a new player, do not change the function name, and use 4 space indents
 </p>
-<form action = "{% url 'games:addPlayerUpdater' %}" method="post">
+<form action = "{% url 'games:addPlayerUpdater' game_id %}" method="post">
     {% csrf_token %}
     <label for="playerName" style="margin: 10px;">Name: </label>
     <input type="text" name="playerName">
