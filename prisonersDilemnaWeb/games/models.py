@@ -34,9 +34,6 @@ class Player(models.Model):
 
         self.points = F("points") + matchSummary.getTotalPoints(self)
         self.rounds_played = F("rounds_played") + len(matchSummary.rounds.all())
-        print(self.points)
-        print(self.rounds_played)
-        self.points_per_round = F("points") / F("rounds_played")
         self.save()
         self.refresh_from_db()
         num = self.points / self.rounds_played
