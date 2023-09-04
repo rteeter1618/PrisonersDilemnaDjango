@@ -13,6 +13,8 @@ urlpatterns = [
     path("playerDetail/<int:pk>", views.playerDetail.as_view(), name="playerDetail"),
     #simulates rounds against other players, no webpage
     path("playRounds/<int:pk>", views.playRounds, name="playRounds"),
-
-    path("gameHome/<int:game_id>", views.gameHome, name="gameHome")
+    #Home page for a specific game
+    path("gameHome/<int:game_id>", views.gameHome, name="gameHome"),
+    #leaderBoard
+    path("leaderBoard/<int:pk>/<int:game_id>"),
 ]
