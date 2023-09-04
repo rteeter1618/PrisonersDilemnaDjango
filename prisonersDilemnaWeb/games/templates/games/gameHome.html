@@ -6,7 +6,7 @@
 
   Hi {{ user.username }}!
   <h1>{{game.name}}</h1>
-  <a href="{url games:leaderboard}">leaderboard</a>
+  <a href={% url "games:leaderboard" game.id %}>leaderboard</a>
 
   <p>My players</p>
   <ul>

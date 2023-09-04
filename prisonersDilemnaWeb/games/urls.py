@@ -16,5 +16,5 @@ urlpatterns = [
     #Home page for a specific game
     path("gameHome/<int:game_id>", views.gameHome, name="gameHome"),
     #leaderBoard
-    path("leaderboard/<int:pk>/<int:game_id>", views.leaderboard, name="leaderboard"),
+    path("leaderboard/<int:game_id>", views.leaderboard, name="leaderboard"),
 ]

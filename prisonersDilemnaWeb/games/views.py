@@ -45,6 +45,6 @@ def playRounds(request, pk):
     print("DONE")
     return HttpResponseRedirect(reverse("games:playerDetail", args=[pk]))
 
-def leaderboard(request, pk, game_id):
+def leaderboard(request, game_id):
     context = {}
     return render(request, "games/leaderboard.html", context)
