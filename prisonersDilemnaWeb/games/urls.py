@@ -11,6 +11,8 @@ urlpatterns = [
     path("createNewPlayer/<int:game_id>", views.createNewPlayer, name="createNewPlayer"),
     #Player statistics
     path("playerDetail/<int:pk>", views.playerDetail.as_view(), name="playerDetail"),
+    #Match details, shows all moves frome ach player
+    path("matchDetail/<int:match_id>", views.matchDetail, name="matchDetail"),
     #simulates rounds against other players, no webpage
     path("playRounds/<int:pk>", views.playRounds, name="playRounds"),
     #Home page for a specific game
