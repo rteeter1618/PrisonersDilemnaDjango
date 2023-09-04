@@ -60,11 +60,22 @@ li.navBar {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: auto;
-    grid-template-columns: repeat(2, max(50px, 30vw));
+    grid-template-columns: repeat(2, max(17px, 39vw));
     background-color: rgb(81, 151, 255);
     padding: 5px;
-    width: max(100px, 60vw);
+    width: max(100px, 78vw);
   }
+
+  .one-row-grid-container-third-width {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(6, max(25px, 13vw));
+    background-color: rgb(81, 151, 255);
+    padding: 5px;
+    width: max(100px, 78vw);
+  }
+  
 
 #grid-link:hover {
     background-color: rgb(0, 17, 255);
