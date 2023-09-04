@@ -44,3 +44,7 @@ def playRounds(request, pk):
     matchManager.playRounds(10, 10, Player.objects.filter(game=player.game))
     print("DONE")
     return HttpResponseRedirect(reverse("games:playerDetail", args=[pk]))
+
+def leaderboard(request, pk, game_id):
+    context = {}
+    return render(request, "games/leaderboard.html", context)
