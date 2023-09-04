@@ -39,6 +39,7 @@ class playerDetail(generic.DetailView):
 
 class matchDetail(generic.DetailView):
     model = MatchSummary
+    context_object_name='match'
     template_name = 'games/matchDetail.html'
 
 def playRounds(request, pk):

@@ -15,7 +15,7 @@
 
     {% for match in player.matches.all %}
     <a href={% url "games:matchDetail" match.pk %}>
-        <div class="grid-container">
+        <div class="grid-container" id="grid-link">
             {% for player in match.players.all %}
                 <div class="grid-item">{{player.name}}</div>
                 <div class="grid-item">{{match|getTotalPoints:player}}</div>

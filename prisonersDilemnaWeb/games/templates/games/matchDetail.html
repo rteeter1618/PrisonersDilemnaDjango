@@ -3,14 +3,12 @@
 {% block content %}
 {% load my_tags %}
 <h2>Players: 
+    <div class="grid-container">
+        {% for player in match.players.all %}
+            <div class="grid-item">{{player.name}}</div>
+        {% endfor %}
+    </div>
 </h2>
-
-
-{% for player in matchHistory.players.all %}
-<p>
-    {{player.name}}
-</p>
-{%endfor%}
 
 
 {% endblock %}

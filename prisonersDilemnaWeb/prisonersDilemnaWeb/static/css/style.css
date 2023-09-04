@@ -56,7 +56,7 @@ li.navBar {
     width: max(100px, 60vw);
   }
 
-  .grid-container:hover {
+#grid-link:hover {
     background-color: rgb(0, 17, 255);
   }
   
