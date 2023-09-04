@@ -37,6 +37,10 @@ class playerDetail(generic.DetailView):
     model = Player
     template_name = "games/playerDetail.html"
 
+class MatchDetail(generic.DetailView):
+    model = MatchSummary
+    template_name = 'games/matchDetail.html'
+
 def playRounds(request, pk):
     player = get_object_or_404(Player, id=pk)
     payoffCalculator = player.game.getPayoffCalculator()
