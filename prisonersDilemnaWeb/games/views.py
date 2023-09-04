@@ -37,7 +37,7 @@ class playerDetail(generic.DetailView):
     model = Player
     template_name = "games/playerDetail.html"
 
-class MatchDetail(generic.DetailView):
+class matchDetail(generic.DetailView):
     model = MatchSummary
     template_name = 'games/matchDetail.html'
 

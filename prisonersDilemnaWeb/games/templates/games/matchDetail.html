@@ -1,0 +1,8 @@
+{% extends 'registration/loggedInBase.html' %}
+{% block title %}matchDetail{% endblock %}
+{% block content %}
+{% load my_tags %}
+<h2>Players: {{matchHistory.players.all}}</h2>
+
+
+{% endblock %}
