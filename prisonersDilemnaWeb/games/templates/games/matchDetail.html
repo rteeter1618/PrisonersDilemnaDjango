@@ -2,13 +2,17 @@
 {% block title %}matchDetail{% endblock %}
 {% block content %}
 {% load my_tags %}
-<h2>Players: 
-    <div class="grid-container">
+<h1>Match between:
+    {% for player in match.players.all %}
+    {{player.name}},
+    {% endfor %}
+</h1>
+
+    <div class="one-row-grid-container">
         {% for player in match.players.all %}
             <div class="grid-item">{{player.name}}</div>
         {% endfor %}
     </div>
-</h2>
 
 
 {% endblock %}
