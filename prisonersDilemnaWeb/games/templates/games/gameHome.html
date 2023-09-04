@@ -6,6 +6,8 @@
 
   Hi {{ user.username }}!
   <h1>{{game.name}}</h1>
+  <a href="{url games:leaderboard}">leaderboard</a>
+
   <p>My players</p>
   <ul>
     {% for player in players %}
