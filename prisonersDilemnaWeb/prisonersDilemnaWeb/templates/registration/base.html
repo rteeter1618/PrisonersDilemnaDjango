@@ -11,7 +11,7 @@
     <ul class="navBar">
         <li class="navBar"><a class="navBar" href="{% url 'games:gameHome' 1 %}">PrisonersDilemma</a></li>
         <li class="navBar"><a class="navBar" href="{% url 'games:gameHome' 2 %}">Chicken</a></li>
-        <li class="navBar"><a class="navBar" href="accounts/login">Login</a></li>
+        <li class="navBar"><a class="navBar" href="{% url 'logout' %}">Log out</a></li>
     </ul>
   <main style="margin: 8px;">
       {% block baseContent %}
