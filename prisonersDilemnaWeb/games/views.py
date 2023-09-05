@@ -51,5 +51,8 @@ def playRounds(request, pk):
     return HttpResponseRedirect(reverse("games:playerDetail", args=[pk]))
 
 def leaderboard(request, game_id):
-    context = {}
+    game = Game.objects.get(pk=game_id)
+    players = game.players.order_by("-points_per_round")
+    context = {"game": game,
+               "players":players}
     return render(request, "games/leaderboard.html", context)

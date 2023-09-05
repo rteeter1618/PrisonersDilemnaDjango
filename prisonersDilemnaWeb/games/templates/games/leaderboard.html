@@ -4,4 +4,10 @@
 
 {% block content %}
 <h1>leaderboard</h1>
+<ol>
+    {% for player in players %}
+        <li>{{player.name}}: {{player.points_per_round}}</li>
+    {% endfor %}
+</ol>
+
 {% endblock %}
