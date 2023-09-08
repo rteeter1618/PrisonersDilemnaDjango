@@ -37,10 +37,34 @@ class playerDetail(generic.DetailView):
     model = Player
     template_name = "games/playerDetail.html"
 
-class matchDetail(generic.DetailView):
-    model = MatchSummary
-    context_object_name='match'
+def matchDetail(request, match_id):
+    match = MatchSummary.objects.get(pk=match_id)
+    #p1      p2 p3..
+    #ppplist...
+    #||
+    #\/
+    playersOrderMap = {}
+    playerPointPairs = []
+    # filling up player map so we know all positions,
+    #  initializing player point pair with correct number of inner lists
+    for idx, player in enumerate(match.players):
+        playersOrderMap [player] = idx
+        playerPointPairs.append([])
+    
+    for round in match.rounds:
+        #each round has one player point pair for each player
+        for playerPointPair in round.playerPointPairs:
+            curPlayer = playerPointPair.player
+            playerPos = playersOrderMap[curPlayer]
+            playerPointPairs[playerPos].append(playerPointPair)
+    
+    #transposing the 2d list so that each row contains 
+    
+    context = {
+
+    }
     template_name = 'games/matchDetail.html'
+    return render(request, template_name, context)
 
 def playRounds(request, pk):
     player = get_object_or_404(Player, id=pk)
