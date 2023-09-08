@@ -68,7 +68,8 @@ def matchDetail(request, match_id):
     
     context = {
         "roundData":finalPairs,
-        "match":match
+        "match":match,
+        "players":match.players.all()
     }
     template_name = 'games/matchDetail.html'
     return render(request, template_name, context)

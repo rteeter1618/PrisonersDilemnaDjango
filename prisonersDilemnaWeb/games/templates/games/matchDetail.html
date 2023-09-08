@@ -3,7 +3,7 @@
 {% block content %}
 {% load my_tags %}
 <h1>Match between:
-    {% for player in match.players.all %}
+    {% for player in players %}
         {% if forloop.counter == 1 %}
             {{player.name}}
         {% else %} 
@@ -13,7 +13,7 @@
 </h1>
 
     <div class="one-row-grid-container">
-        {% for player in match.players.all %}
+        {% for player in players %}
             <div class="grid-item">{{player.name}}</div>
         {% endfor %}
     </div>
