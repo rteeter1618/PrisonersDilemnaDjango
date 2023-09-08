@@ -3,6 +3,11 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<ul class="navBar">
+  <li class="navBar"><a class="navBar" href="{% url 'home' %}">Home</a></li>
+    <li class="navBar"><a class="navBar" href="{% url 'games:gameHome' 1 %}">PrisonersDilemma</a></li>
+    <li class="navBar"><a class="navBar" href="{% url 'games:gameHome' 2 %}">Chicken</a></li>
+</ul>
   <h1>Home</h1>
   <h4>Hi {{ user.username }}! Welcome to the code your own player website</h4>
   <p>This website will allow you to code your own players for games like chicken and the prisoners dilemna,
