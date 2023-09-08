@@ -18,9 +18,9 @@
         {% endfor %}
     </div>
     
-    {% for round in match.rounds.all %}
+    {% for pairList in roundData %}
         <div class="one-row-grid-container-third-width">
-            {% for pair in round.playerPointPairs.all %}
+            {% for pair in pairList %}
             <div class="grid-item">{{pair.player.name}}</div>
             <div class="grid-item">{{pair.move}}</div>
             <div class="grid-item">{{pair.points}}</div>
