@@ -59,6 +59,12 @@ def matchDetail(request, match_id):
             playerPointPairs[playerPos].append(playerPointPair)
     
     #transposing the 2d list so that each row contains 
+    finalPairs = []
+    for i in range(0, len(playerPointPairs[0])):
+        roundI=[]
+        for pairList in playerPointPairs:
+            roundI.append(pairList[i])
+        finalPairs.append(roundI)
     
     context = {
 
