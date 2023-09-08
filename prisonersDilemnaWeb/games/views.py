@@ -17,7 +17,7 @@ def addPlayerUpdater(request, game_id):
     player.save()
     player.getNextMove([], [])
 
-    return HttpResponseRedirect(reverse("home"))
+    return HttpResponseRedirect(reverse("games:gameHome", args=[game_id]))
 
 def gameHome(request, game_id):
     players = request.user.players.filter(game=game_id)
