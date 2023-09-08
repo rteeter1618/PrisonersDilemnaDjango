@@ -47,13 +47,13 @@ def matchDetail(request, match_id):
     playerPointPairs = []
     # filling up player map so we know all positions,
     #  initializing player point pair with correct number of inner lists
-    for idx, player in enumerate(match.players):
+    for idx, player in enumerate(match.players.all()):
         playersOrderMap [player] = idx
         playerPointPairs.append([])
     
-    for round in match.rounds:
+    for round in match.rounds.all():
         #each round has one player point pair for each player
-        for playerPointPair in round.playerPointPairs:
+        for playerPointPair in round.playerPointPairs.all():
             curPlayer = playerPointPair.player
             playerPos = playersOrderMap[curPlayer]
             playerPointPairs[playerPos].append(playerPointPair)
