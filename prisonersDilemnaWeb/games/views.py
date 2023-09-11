@@ -55,6 +55,8 @@ def playRounds(request, pk):
 def leaderboard(request, game_id):
     game = Game.objects.get(pk=game_id)
     players = game.players.order_by("-points_per_round")
+    myPlayers = game.players.filter(user=request.user)
     context = {"game": game,
-               "players":players}
+               "players":players,
+               "myPlayers":myPlayers}
     return render(request, "games/leaderboard.html", context)

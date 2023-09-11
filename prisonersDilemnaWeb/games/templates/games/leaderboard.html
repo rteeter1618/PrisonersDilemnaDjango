@@ -6,7 +6,11 @@
 <h1>leaderboard</h1>
 <ol>
     {% for player in players %}
-        <li>{{player.name}}: {{player.points_per_round}}</li>
+        {% if player in myPlayers %}
+            <li style="color:red">{{player.name}}: {{player.points_per_round}}</li>
+        {% else %}
+            <li>{{player.name}}: {{player.points_per_round}}</li>
+        {% endif %}
     {% endfor %}
 </ol>
 
