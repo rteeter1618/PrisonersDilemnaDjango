@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from games.gameUtils.MatchManager import MatchManager
+from games.gameUtils.ViewProcessor import ViewProcessor
 from games.gameUtils.payoffCalculator import TwoPlayerPayoffCalculator
 
 from games.models import Game, MatchSummary, Player
@@ -38,39 +39,8 @@ class playerDetail(generic.DetailView):
     template_name = "games/playerDetail.html"
 
 def matchDetail(request, match_id):
-    match = MatchSummary.objects.get(pk=match_id)
-    #p1      p2 p3..
-    #ppplist...
-    #||
-    #\/
-    playersOrderMap = {}
-    playerPointPairs = []
-    # filling up player map so we know all positions,
-    #  initializing player point pair with correct number of inner lists
-    for idx, player in enumerate(match.players.all()):
-        playersOrderMap [player] = idx
-        playerPointPairs.append([])
+    context = ViewProcessor.matchDetailContext(match_id)
     
-    for round in match.rounds.all():
-        #each round has one player point pair for each player
-        for playerPointPair in round.playerPointPairs.all():
-            curPlayer = playerPointPair.player
-            playerPos = playersOrderMap[curPlayer]
-            playerPointPairs[playerPos].append(playerPointPair)
-    
-    #transposing the 2d list so that each row contains 
-    finalPairs = []
-    for i in range(0, len(playerPointPairs[0])):
-        roundI=[]
-        for pairList in playerPointPairs:
-            roundI.append(pairList[i])
-        finalPairs.append(roundI)
-    
-    context = {
-        "roundData":finalPairs,
-        "match":match,
-        "players":match.players.all()
-    }
     template_name = 'games/matchDetail.html'
     return render(request, template_name, context)
 
